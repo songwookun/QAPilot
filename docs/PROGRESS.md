@@ -14,10 +14,12 @@
 - [x] 인증 미들웨어 (비로그인 시 /auth/login 리디렉트)
 - [x] 회원가입 / 로그인 / 로그아웃
 - [x] 회원가입 시 users 테이블 자동 insert (DB 트리거)
-- [x] 학습 프로젝트 목록 (카드형, 카테고리/난이도 뱃지)
+- [x] 회원가입 페이지 개인정보 미사용 안내 문구 추가
+- [x] 로그인 페이지 학습용 아이디 안내 문구 추가
+- [x] 학습 프로젝트 목록 (카테고리 토글 + 카드형)
 - [x] 프로젝트 상세 페이지 (탭 구조)
 - [x] 기획서 탭 (jsonb 기반 기능/요구사항/예외사항 표시)
-- [x] 시드 데이터 5개 프로젝트 + 5개 기획서
+- [x] 시드 데이터 9개 프로젝트 + 9개 기획서
 
 ### Phase 2 - TC 작성
 - [x] TC 테이블 엑셀 형태 (대분류/중분류/소분류/요약/확인/비고)
@@ -27,53 +29,50 @@
 - [x] CL(체크리스트) 제거 - TC만 사용
 - [x] TC 탭에서 기획서 사이드 패널 (접기/펼치기)
 
-### Phase 3 - 테스트 실행
-- [x] 테스트 실행 탭 UI
-- [x] TC 선택 → Actual Result 입력 → PASS/FAIL/BLOCKED 기록
-- [x] 실행 기록 테이블 (관련 TC, 결과, 버전, 실행일시)
-- [x] 통계 바 (전체/PASS/FAIL/BLOCKED 카운트)
-- [x] 실행 기록 삭제
-
-### 테스트 대상 목업 (5개 전부 완료)
-- [x] 웹 로그인 기능 목업 (의도적 버그 포함)
-- [x] 쇼핑몰 장바구니 목업 (의도적 버그 포함)
-- [x] 모바일 회원가입 목업 (의도적 버그 포함)
-- [x] 게임 상점 구매 목업 (의도적 버그 포함)
-- [x] 인벤토리 정렬 목업 (의도적 버그 포함)
-- [x] 테스트 대상 탭에서 TC 사이드 패널 (화면 분할)
-
-### UI 개선
-- [x] 프로젝트 카드 색상 Linear/Notion 스타일로 변경
-- [x] 카테고리/난이도 뱃지 디자인 개선
-
----
-
-## 남은 작업
+### Phase 3 - 테스트 진행
+- [x] 테스트 진행 탭 (목업 + TC 사이드 패널)
+- [x] 의도적 버그가 포함된 인터랙티브 목업 9종
+- [x] 각 목업에 힌트 텍스트 표시
 
 ### Phase 4 - 버그 리포트
 - [x] 버그 리포트 탭 UI
 - [x] 버그 작성 폼 (우선순위, 담당자, 이슈내용, 재현경로, 발생률, 기대결과 등)
 - [x] Bug ID 자동 생성 (BUG-001)
-- [x] 버그 목록 테이블
+- [x] 버그 목록 테이블 + 클릭 상세 보기
 - [x] 버그 상태 관리 (Open → In Progress → Fixed → Retest → Closed)
-- [x] 테스트 실행에서 FAIL 시 "버그 발급" 버튼 연동
+- [x] 상태별 통계 바
 - [x] 관련 TC 자동 연결
 
 ### Phase 5 - QA 결과 요약
-- [x] QA 결과 탭 UI
-- [x] 전체 TC 수 / PASS / FAIL / BLOCKED 수
-- [x] 생성된 버그 수 / 상태별 버그 수
-- [x] 최근 테스트 기록
-- [x] 최근 버그 기록
+- [x] QA 결과 대시보드 (TC 현황, 테스트 실행, 버그 현황)
+- [x] 프로그레스 바 시각화
+- [x] 최근 테스트 기록 / 최근 버그 기록
+- [x] 정답 확인 (스포일러 방식) - 의도적 버그 목록 + 힌트
+- [x] QA 리포트 텍스트 파일 다운로드 (포트폴리오 활용)
 
-### 추가 개선 (선택)
-- [ ] 랜딩 페이지 (/) 디자인
-- [ ] 프로젝트 상세 헤더 디자인 개선
-- [ ] 탭 전환 시 로딩 상태
-- [ ] 반응형 (모바일 대응)
-- [ ] Vercel 배포
-- [ ] 에러 처리 고도화
-- [ ] 회원가입 시 닉네임 저장 확인
+### 테스트 대상 목업 (9개)
+- [x] 웹 로그인 기능 (초급) - 의도적 버그 포함
+- [x] 장바구니 기능 (중급) - 의도적 버그 포함
+- [x] 회원가입 기능 (초급) - 의도적 버그 포함
+- [x] 포털 사이트 (중급) - 의도적 버그 포함
+- [x] 할 일 관리 앱 (중급) - 의도적 버그 포함
+- [x] 모바일 송금 앱 (고급) - 의도적 버그 포함
+- [x] 게임 상점 구매 (초급) - 의도적 버그 포함
+- [x] 인벤토리 정렬 (중급) - 의도적 버그 포함
+- [x] RPG 전투 밸런스 (고급) - 의도적 버그 포함
+
+### UI / UX 개선
+- [x] 프로젝트 목록 카테고리 토글 (웹/앱/게임)
+- [x] 프로젝트 카드에 진행률 표시 (TC/버그 개수)
+- [x] 최근 활동 피드 (TC 작성, 버그 등록 내역)
+- [x] 일일 QA 팁 (QA_REAL_WORLD_TIPS.md 기반, 날짜별 로테이션)
+- [x] 랜딩 페이지 반응형 디자인
+- [x] 랜딩 페이지 PC 환경 권장 안내 문구
+
+### 배포
+- [x] GitHub 레포지토리 생성 (public)
+- [x] Vercel 배포 완료 (https://qa-support.vercel.app)
+- [x] Google Search Console 등록 및 소유권 인증
 
 ---
 
@@ -82,33 +81,42 @@
 | 영역 | 기술 |
 |------|------|
 | 프론트엔드 | Next.js 16 (App Router), TypeScript, Tailwind CSS v4 |
-| 백엔드 | Next.js Route Handlers, Supabase SDK |
+| 백엔드 | Next.js Server Components, Supabase SDK |
 | DB | Supabase Postgres |
 | 인증 | Supabase Auth (이메일/비밀번호, 인증 없이) |
-| 배포 | Vercel (예정) |
+| 폼 | React Hook Form + Zod |
+| 배포 | Vercel |
 
 ## 주요 파일 구조
 
 ```
 src/
 ├── app/
-│   ├── auth/login/page.tsx        # 로그인
-│   ├── auth/signup/page.tsx       # 회원가입
-│   ├── projects/page.tsx          # 프로젝트 목록
-│   ├── projects/[id]/
-│   │   ├── page.tsx               # 프로젝트 상세 (탭 라우팅)
-│   │   ├── tc-cl-tab.tsx          # TC 탭 (엑셀 형태 + 기획서 패널)
-│   │   ├── test-run-tab.tsx       # 테스트 실행 탭
-│   │   └── mock/
-│   │       ├── index.tsx          # 목업 탭 (TC 사이드 패널)
-│   │       ├── login-mock.tsx     # 로그인 목업
-│   │       ├── cart-mock.tsx      # 장바구니 목업
-│   │       ├── signup-mock.tsx    # 회원가입 목업
-│   │       ├── game-store-mock.tsx # 게임 상점 목업
-│   │       └── inventory-mock.tsx # 인벤토리 목업
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── globals.css
+│   ├── page.tsx                    # 랜딩 페이지 (반응형)
+│   ├── layout.tsx                  # 루트 레이아웃 + 메타데이터
+│   ├── globals.css
+│   ├── auth/
+│   │   ├── login/page.tsx          # 로그인
+│   │   └── signup/page.tsx         # 회원가입
+│   └── projects/
+│       ├── page.tsx                # 프로젝트 목록 (서버)
+│       ├── project-list.tsx        # 카테고리 토글 + 카드 (클라이언트)
+│       └── [id]/
+│           ├── page.tsx            # 프로젝트 상세 (탭 구조)
+│           ├── tc-cl-tab.tsx       # TC 작성 탭
+│           ├── bug-tab.tsx         # 버그 리포트 탭
+│           ├── result-tab.tsx      # QA 결과 대시보드
+│           └── mock/
+│               ├── index.tsx       # 목업 라우터
+│               ├── login-mock.tsx
+│               ├── cart-mock.tsx
+│               ├── signup-mock.tsx
+│               ├── portal-mock.tsx
+│               ├── todo-mock.tsx
+│               ├── transfer-mock.tsx
+│               ├── game-store-mock.tsx
+│               ├── inventory-mock.tsx
+│               └── battle-mock.tsx
 ├── lib/
 │   ├── supabase/
 │   │   ├── client.ts              # 클라이언트용 Supabase
@@ -118,6 +126,5 @@ src/
 │   └── utils.ts
 ├── types/
 │   └── database.ts               # DB 타입 정의
-├── middleware.ts                  # 인증 미들웨어
-└── hooks/                        # (아직 미사용)
+└── middleware.ts                  # 인증 미들웨어
 ```
