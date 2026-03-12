@@ -12,7 +12,7 @@ export default async function Home() {
       {/* 헤더 */}
       <header className="border-b bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-          <span className="text-xl font-bold">QAPilot</span>
+          <span className="text-xl font-bold">QASupport</span>
           <div className="flex items-center gap-2 sm:gap-3">
             {user ? (
               <Link
@@ -155,7 +155,7 @@ export default async function Home() {
       <section className="border-t bg-white py-12 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <h2 className="text-center text-xl font-bold text-gray-900 sm:text-2xl">
-            QAPilot만의 특징
+            QASupport만의 특징
           </h2>
           <div className="mt-8 grid gap-6 sm:mt-12 sm:grid-cols-3 sm:gap-8">
             <div className="text-center">
@@ -208,7 +208,7 @@ export default async function Home() {
       {/* 푸터 */}
       <footer className="border-t bg-white py-6 sm:py-8">
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-          <p className="text-xs text-gray-400">QAPilot - QA 실무 학습 플랫폼</p>
+          <p className="text-xs text-gray-400">QASupport - QA 실무 학습 플랫폼</p>
           <p className="mt-1 text-[11px] text-gray-300">
             원활한 학습을 위해 PC 환경에서의 이용을 권장합니다.
           </p>

@@ -1,4 +1,4 @@
-# QAPilot 개발 진행 현황
+# QASupport 개발 진행 현황
 
 ## 완료된 작업
 

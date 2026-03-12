@@ -26,7 +26,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight">QAPilot</h1>
+          <h1 className="text-3xl font-bold tracking-tight">QASupport</h1>
           <p className="mt-2 text-sm text-gray-500">
             QA 학습 플랫폼에 로그인하세요
           </p>

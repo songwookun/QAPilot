@@ -1,8 +1,8 @@
-# QAPilot Database Schema
+# QASupport Database Schema
 
 ## 1. 개요
 
-본 문서는 QAPilot QA 학습 플랫폼의 데이터베이스 구조를 정의한다.
+본 문서는 QASupport QA 학습 플랫폼의 데이터베이스 구조를 정의한다.
 
 DB는 Supabase(PostgreSQL)를 사용하며 다음 데이터를 관리한다.
 

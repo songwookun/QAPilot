@@ -80,7 +80,7 @@ export default async function ProjectDetailPage({
       <header className="border-b bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/projects" className="text-xl font-bold">
-            QAPilot
+            QASupport
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-500">{user.email}</span>
