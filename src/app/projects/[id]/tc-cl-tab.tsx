@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { TestCase, TcStatus, Spec, SpecFeature } from "@/types/database";
 
@@ -127,16 +127,6 @@ export default function TcTab({
     }
   }, [editingCell]);
 
-  const refresh = useCallback(async () => {
-    const supabase = createClient();
-    const { data } = await supabase
-      .from("test_cases")
-      .select("*")
-      .eq("project_id", projectId)
-      .eq("user_id", userId)
-      .order("tc_number", { ascending: true });
-    setTestCases((data as TestCase[]) ?? []);
-  }, [projectId, userId]);
 
   async function addRow() {
     const supabase = createClient();
@@ -144,7 +134,7 @@ export default function TcTab({
       ? Math.max(...testCases.map((tc) => tc.tc_number)) + 1
       : 1;
 
-    const { error } = await supabase.from("test_cases").insert({
+    const newRow = {
       project_id: projectId,
       user_id: userId,
       tc_number: nextNumber,
@@ -152,21 +142,24 @@ export default function TcTab({
       medium_category: "",
       minor_category: "",
       summary: "",
-      status: "Test",
+      status: "Test" as TcStatus,
       note: "",
-    });
+    };
+
+    const { data, error } = await supabase.from("test_cases").insert(newRow).select().single();
     if (error) {
       alert("행 추가 실패: " + error.message);
       return;
     }
-    refresh();
+    setTestCases((prev) => [...prev, data as TestCase]);
   }
 
   async function deleteRow(id: string) {
     if (!confirm("이 행을 삭제하시겠습니까?")) return;
+    // Optimistic: 즉시 UI에서 제거
+    setTestCases((prev) => prev.filter((tc) => tc.id !== id));
     const supabase = createClient();
     await supabase.from("test_cases").delete().eq("id", id);
-    refresh();
   }
 
   function startEdit(tc: TestCase, field: keyof TestCase) {
@@ -177,19 +170,23 @@ export default function TcTab({
 
   async function saveEdit() {
     if (!editingCell) return;
-    const supabase = createClient();
-    await supabase
-      .from("test_cases")
-      .update({ [editingCell.field]: editValue })
-      .eq("id", editingCell.id);
+    const { id, field } = editingCell;
+    // Optimistic: 즉시 UI 반영
+    setTestCases((prev) =>
+      prev.map((tc) => (tc.id === id ? { ...tc, [field]: editValue } : tc))
+    );
     setEditingCell(null);
-    refresh();
+    const supabase = createClient();
+    await supabase.from("test_cases").update({ [field]: editValue }).eq("id", id);
   }
 
   async function updateStatus(id: string, status: TcStatus) {
+    // Optimistic: 즉시 UI 반영
+    setTestCases((prev) =>
+      prev.map((tc) => (tc.id === id ? { ...tc, status } : tc))
+    );
     const supabase = createClient();
     await supabase.from("test_cases").update({ status }).eq("id", id);
-    refresh();
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {

@@ -27,42 +27,47 @@ export default async function ProjectDetailPage({
     redirect("/auth/login");
   }
 
-  const { data: project } = await supabase
-    .from("learning_projects")
-    .select("*")
-    .eq("id", id)
-    .single();
+  // 모든 쿼리를 병렬로 실행
+  const [
+    { data: project },
+    { data: spec },
+    { data: testCases },
+    { data: testRuns },
+    { data: bugs },
+  ] = await Promise.all([
+    supabase
+      .from("learning_projects")
+      .select("*")
+      .eq("id", id)
+      .single(),
+    supabase
+      .from("specs")
+      .select("*")
+      .eq("project_id", id)
+      .single(),
+    supabase
+      .from("test_cases")
+      .select("*")
+      .eq("project_id", id)
+      .eq("user_id", user.id)
+      .order("tc_number", { ascending: true }),
+    supabase
+      .from("test_runs")
+      .select("*")
+      .eq("project_id", id)
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("bugs")
+      .select("*")
+      .eq("project_id", id)
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false }),
+  ]);
 
   if (!project) {
     redirect("/projects");
   }
-
-  const { data: spec } = await supabase
-    .from("specs")
-    .select("*")
-    .eq("project_id", id)
-    .single();
-
-  const { data: testCases } = await supabase
-    .from("test_cases")
-    .select("*")
-    .eq("project_id", id)
-    .eq("user_id", user.id)
-    .order("tc_number", { ascending: true });
-
-  const { data: testRuns } = await supabase
-    .from("test_runs")
-    .select("*")
-    .eq("project_id", id)
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
-
-  const { data: bugs } = await supabase
-    .from("bugs")
-    .select("*")
-    .eq("project_id", id)
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
 
   const typedProject = project as LearningProject;
   const typedSpec = spec as Spec | null;

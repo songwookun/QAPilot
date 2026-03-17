@@ -15,22 +15,40 @@ export default async function ProjectsPage() {
     redirect("/auth/login");
   }
 
-  const { data: projects } = await supabase
-    .from("learning_projects")
-    .select("*")
-    .eq("is_published", true)
-    .order("created_at", { ascending: true });
-
-  // 사용자 진행률 데이터
-  const { data: tcCounts } = await supabase
-    .from("test_cases")
-    .select("project_id")
-    .eq("user_id", user.id);
-
-  const { data: bugCounts } = await supabase
-    .from("bugs")
-    .select("project_id")
-    .eq("user_id", user.id);
+  // 모든 쿼리를 병렬로 실행
+  const [
+    { data: projects },
+    { data: tcCounts },
+    { data: bugCounts },
+    { data: recentTcs },
+    { data: recentBugs },
+  ] = await Promise.all([
+    supabase
+      .from("learning_projects")
+      .select("*")
+      .eq("is_published", true)
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("test_cases")
+      .select("project_id")
+      .eq("user_id", user.id),
+    supabase
+      .from("bugs")
+      .select("project_id")
+      .eq("user_id", user.id),
+    supabase
+      .from("test_cases")
+      .select("project_id, summary, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(3),
+    supabase
+      .from("bugs")
+      .select("project_id, bug_code, issue_summary, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(3),
+  ]);
 
   const progressMap: Record<string, { tc: number; bugs: number }> = {};
   (tcCounts ?? []).forEach((row: { project_id: string }) => {
@@ -41,22 +59,6 @@ export default async function ProjectsPage() {
     if (!progressMap[row.project_id]) progressMap[row.project_id] = { tc: 0, bugs: 0 };
     progressMap[row.project_id].bugs++;
   });
-
-  // 최근 활동: TC 최근 3개
-  const { data: recentTcs } = await supabase
-    .from("test_cases")
-    .select("project_id, summary, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
-    .limit(3);
-
-  // 최근 활동: 버그 최근 3개
-  const { data: recentBugs } = await supabase
-    .from("bugs")
-    .select("project_id, bug_code, issue_summary, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
-    .limit(3);
 
   // 프로젝트 ID → 이름 맵
   const projectNameMap: Record<string, string> = {};

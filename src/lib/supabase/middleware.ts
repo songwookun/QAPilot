@@ -25,16 +25,22 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
+  // 공개 페이지와 인증 페이지는 세션 체크 불필요 - 쿠키 갱신만 처리
+  const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
+  const isPublicPage = request.nextUrl.pathname === "/";
+
+  if (isAuthPage || isPublicPage) {
+    // 세션 쿠키 갱신만 수행 (getSession은 로컬 쿠키만 읽어서 빠름)
+    await supabase.auth.getSession();
+    return supabaseResponse;
+  }
+
+  // 보호된 경로만 getUser() 호출 (Supabase API 요청)
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // 인증되지 않은 사용자가 보호된 경로 접근 시 로그인으로 리디렉트
-  const isAuthPage =
-    request.nextUrl.pathname.startsWith("/auth");
-  const isPublicPage = request.nextUrl.pathname === "/";
-
-  if (!user && !isAuthPage && !isPublicPage) {
+  if (!user) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     return NextResponse.redirect(url);
